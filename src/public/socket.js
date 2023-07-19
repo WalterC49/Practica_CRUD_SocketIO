@@ -1,10 +1,12 @@
 const socket = io();
 
 const saveNote = (title, description) => {
-  socket.emit("client:newNote", {
-    title,
-    description,
-  });
+  if (title && description) {
+    socket.emit("client:newNote", {
+      title,
+      description,
+    });
+  }
 };
 
 const deleteNote = id => {
@@ -16,8 +18,10 @@ const getNote = id => {
 };
 
 const updateNote = (id, title, description) => {
-  socket.emit("client:updateNote", { id, title, description });
-  savedId = "";
+  if (id && title && description) {
+    socket.emit("client:updateNote", { id, title, description });
+    savedId = "";
+  }
 };
 
 socket.on("server:newNote", appendNote);

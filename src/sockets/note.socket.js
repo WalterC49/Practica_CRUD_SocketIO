@@ -2,7 +2,9 @@ import noteModel from "../models/noteModel.js";
 import { v4 as uuidv4 } from "uuid";
 
 const loadNotes = async client => {
-  const notes = await noteModel.findAll();
+  const notes = await noteModel.findAll({
+    attributes: ["id", "title", "description"],
+  });
   client.emit("server:loadNotes", notes);
 };
 
